@@ -1,11 +1,27 @@
-import DropDownForm from '../form/Dropdown';
-import InputForm from '../form/Input';
+import DropDownForm from "../form/Dropdown";
+import InputFormHook from "../form/Input";
+import { useState } from "react";
 
-const ModalHook = ({ visiable, onClose }) => {
+const ModalHook = ({ visiable, onClose, onConfirm }) => {
+  const [item, setItem] = useState({
+    name: "",
+    surname: "",
+    gender: "male",
+    phoneNumber: "",
+    email: "",
+  });
+
+  const setForm = (key, value) => {
+    setItem({
+      ...item,
+      [key]: value,
+    });
+  };
+
   return (
     <div
       className={`fixed z-10 inset-0 overflow-y-auto ${
-        visiable ? 'block' : 'hidden'
+        visiable ? "block" : "hidden"
       }`}
       aria-labelledby="modal-title"
       role="dialog"
@@ -44,13 +60,16 @@ const ModalHook = ({ visiable, onClose }) => {
                         Name
                       </label>
                       {/* Input Component Name */}
-                      {/* <InputForm /> */}
-                      <input
+                      <InputFormHook
+                        onChange={(value) => setForm("name", value)}
+                      />
+
+                      {/* <input
                         className="appearance-none block w-full bg-gray-200 text-gray-700 borde rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                         id="grid-first-name"
                         type="text"
                         placeholder="Jane"
-                      />
+                      /> */}
                     </div>
                     <div className="w-full md:w-1/2 px-3">
                       <label
@@ -60,13 +79,36 @@ const ModalHook = ({ visiable, onClose }) => {
                         Surname
                       </label>
                       {/* Input Component Surname */}
-                      {/* <InputForm /> */}
-                      <input
+                      <InputFormHook
+                        onChange={(value) => setForm("surname", value)}
+                      />
+                      {/* <input
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-last-name"
                         type="text"
                         placeholder="Doe"
+                      /> */}
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap -mx-3 mb-2">
+                    <div className="w-full px-3 mb-6 md:mb-0">
+                      <label
+                        className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        htmlFor="grid-city"
+                      >
+                        Email
+                      </label>
+                      {/* Input Component Phone Number */}
+                      <InputFormHook
+                        onChange={(value) => setForm("email", value)}
                       />
+
+                      {/* <input
+                        className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                        id="grid-city"
+                        type="text"
+                        placeholder="aaa@gmail.com"
+                      /> */}
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-6">
@@ -78,7 +120,7 @@ const ModalHook = ({ visiable, onClose }) => {
                         Gender
                       </label>
                       {/* Dropdown Component Gender */}
-                      <DropDownForm options={['Male', 'Female']} />
+                      <DropDownForm options={["Male", "Female"]} />
                     </div>
                   </div>
                   <div className="flex flex-wrap -mx-3 mb-2">
@@ -90,13 +132,16 @@ const ModalHook = ({ visiable, onClose }) => {
                         Phone Number
                       </label>
                       {/* Input Component Phone Number */}
-                      {/* <InputForm /> */}
-                      <input
+                      <InputFormHook
+                        onChange={(value) => setForm("phoneNumber", value)}
+                      />
+
+                      {/* <input
                         className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                         id="grid-city"
                         type="text"
                         placeholder="08xxxxxxxxx"
-                      />
+                      /> */}
                     </div>
                   </div>
                 </form>
@@ -107,14 +152,14 @@ const ModalHook = ({ visiable, onClose }) => {
             <button
               type="button"
               className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-              // onClick={}
+              onClick={() => onConfirm(item)}
             >
               Confirm
             </button>
             <button
               type="button"
               className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-              onClick={this.onClose}
+              onClick={onClose}
             >
               Cancel
             </button>

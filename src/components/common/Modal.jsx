@@ -7,17 +7,34 @@ class Modal extends Component {
     super(props);
     this.onClose = props.onClose;
     this.onSave = props.onSave;
+    // this.state = {
+    //   name: "",
+    //   surname: "",
+    //   gender: "male",
+    //   phoneNumber: "",
+    //   email: "",
+    // };
     this.state = {
-      name: "",
-      surname: "",
-      gender: "male",
-      phoneNumber: "",
-      email: "",
+      item: {
+        name: "",
+        surname: "",
+        gender: "male",
+        phoneNumber: "",
+        email: "",
+      },
     };
   }
 
+  setForm(key, value) {
+    this.setState({
+      item: {
+        ...this.state.item,
+        [key]: value,
+      },
+    });
+  }
+
   render() {
-    console.log(this.state);
     return (
       <div
         className={`fixed z-10 inset-0 overflow-y-auto ${
@@ -61,7 +78,7 @@ class Modal extends Component {
                         </label>
                         {/* Input Component Name */}
                         <InputForm
-                          onChange={(value) => this.setState({ name: value })}
+                          onChange={(value) => this.setForm("name", value)}
                           placeholder="Jane"
                         />
                         {/* <input
@@ -80,9 +97,7 @@ class Modal extends Component {
                         </label>
                         {/* Input Component Surname */}
                         <InputForm
-                          onChange={(value) =>
-                            this.setState({ surname: value })
-                          }
+                          onChange={(value) => this.setForm("surname", value)}
                           placeholder="Doe"
                         />
                         {/* <input
@@ -103,7 +118,7 @@ class Modal extends Component {
                         </label>
                         {/* Input Component Phone Number */}
                         <InputForm
-                          onChange={(value) => this.setState({ email: value })}
+                          onChange={(value) => this.setForm("email", value)}
                           placeholder="xxx@gmail.com"
                         />
                         {/* <input
@@ -137,7 +152,7 @@ class Modal extends Component {
                         {/* Input Component Phone Number */}
                         <InputForm
                           onChange={(value) =>
-                            this.setState({ phoneNumber: value })
+                            this.setForm("phoneNumber", value)
                           }
                           placeholder="08xxxxxxxxx"
                         />
@@ -157,7 +172,7 @@ class Modal extends Component {
               <button
                 type="button"
                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                onClick={() => this.onSave(this.state)}
+                onClick={() => this.onSave(this.state.item)}
               >
                 Confirm
               </button>

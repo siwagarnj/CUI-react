@@ -20,6 +20,19 @@ class Tutorial1Page extends Component {
     console.log("onSaveItem => ", newItem);
     const res = await postApi("/users", newItem);
     console.log(res);
+    this.setState({
+      items: [
+        ...this.state.items,
+        {
+          name: newItem.name,
+          surname: newItem.surname,
+          email: newItem.email,
+          gender: newItem.gender,
+          phoneNumber: newItem.phoneNumber,
+        },
+      ],
+      isModalVisiable: false,
+    });
   }
 
   render() {
@@ -41,14 +54,14 @@ class Tutorial1Page extends Component {
             this.setState({
               items: [
                 ...this.state.items,
-                {
-                  no: this.state.items.length + 1,
-                  name: "hello",
-                  surname: "world",
-                  email: "g@mail.com",
-                  gender: "male",
-                  phoneNumber: "0800000000",
-                },
+                // {
+                //   no: this.state.items.length + 1,
+                //   name: "hello",
+                //   surname: "world",
+                //   email: "g@mail.com",
+                //   gender: "male",
+                //   phoneNumber: "0800000000",
+                // },
               ],
             });
           }}

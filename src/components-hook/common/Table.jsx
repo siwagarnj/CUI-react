@@ -1,4 +1,4 @@
-const TableHook = ({ onCreate, onDelete, onEdit }) => {
+const TableHook = ({ items, onCreate, onDelete, onEdit }) => {
   return (
     <div className="bg-white p-8 rounded-md w-full">
       <div className=" flex items-center justify-between pb-6">
@@ -47,7 +47,7 @@ const TableHook = ({ onCreate, onDelete, onEdit }) => {
                 </tr>
               </thead>
               <tbody>
-                {this.props.items.map((item) => {
+                {items.map((item) => {
                   return (
                     <tr key={item.no}>
                       <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
