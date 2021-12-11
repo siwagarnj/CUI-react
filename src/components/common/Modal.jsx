@@ -1,18 +1,27 @@
-import React, { Component } from 'react';
-import DropDownForm from '../form/Dropdown';
-import InputForm from '../form/Input'
+import React, { Component } from "react";
+import DropDownForm from "../form/Dropdown";
+import InputForm from "../form/Input";
 
 class Modal extends Component {
   constructor(props) {
     super(props);
     this.onClose = props.onClose;
+    this.onSave = props.onSave;
+    this.state = {
+      name: "",
+      surname: "",
+      gender: "male",
+      phoneNumber: "",
+      email: "",
+    };
   }
 
   render() {
+    console.log(this.state);
     return (
       <div
         className={`fixed z-10 inset-0 overflow-y-auto ${
-          this.props.visiable ? 'block' : 'hidden'
+          this.props.visiable ? "block" : "hidden"
         }`}
         aria-labelledby="modal-title"
         role="dialog"
@@ -51,13 +60,16 @@ class Modal extends Component {
                           Name
                         </label>
                         {/* Input Component Name */}
-                        {/* <InputForm /> */}
-                        <input
+                        <InputForm
+                          onChange={(value) => this.setState({ name: value })}
+                          placeholder="Jane"
+                        />
+                        {/* <input
                           className="appearance-none block w-full bg-gray-200 text-gray-700 borde rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                           id="grid-first-name"
                           type="text"
                           placeholder="Jane"
-                        />
+                        /> */}
                       </div>
                       <div className="w-full md:w-1/2 px-3">
                         <label
@@ -67,13 +79,39 @@ class Modal extends Component {
                           Surname
                         </label>
                         {/* Input Component Surname */}
-                        {/* <InputForm /> */}
-                        <input
+                        <InputForm
+                          onChange={(value) =>
+                            this.setState({ surname: value })
+                          }
+                          placeholder="Doe"
+                        />
+                        {/* <input
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="grid-last-name"
                           type="text"
                           placeholder="Doe"
+                        /> */}
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap -mx-3 mb-2">
+                      <div className="w-full px-3 mb-6 md:mb-0">
+                        <label
+                          className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                          htmlFor="grid-city"
+                        >
+                          Email
+                        </label>
+                        {/* Input Component Phone Number */}
+                        <InputForm
+                          onChange={(value) => this.setState({ email: value })}
+                          placeholder="xxx@gmail.com"
                         />
+                        {/* <input
+                          className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                          id="grid-city"
+                          type="text"
+                          placeholder="08xxxxxxxxx"
+                        /> */}
                       </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-6">
@@ -85,7 +123,7 @@ class Modal extends Component {
                           Gender
                         </label>
                         {/* Dropdown Component Gender */}
-                        <DropDownForm options={['Male', 'Female']} />
+                        <DropDownForm options={["Male", "Female"]} />
                       </div>
                     </div>
                     <div className="flex flex-wrap -mx-3 mb-2">
@@ -97,13 +135,18 @@ class Modal extends Component {
                           Phone Number
                         </label>
                         {/* Input Component Phone Number */}
-                        {/* <InputForm /> */}
-                        <input
+                        <InputForm
+                          onChange={(value) =>
+                            this.setState({ phoneNumber: value })
+                          }
+                          placeholder="08xxxxxxxxx"
+                        />
+                        {/* <input
                           className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                           id="grid-city"
                           type="text"
                           placeholder="08xxxxxxxxx"
-                        />
+                        /> */}
                       </div>
                     </div>
                   </form>
@@ -114,7 +157,7 @@ class Modal extends Component {
               <button
                 type="button"
                 className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                // onClick={}
+                onClick={() => this.onSave(this.state)}
               >
                 Confirm
               </button>

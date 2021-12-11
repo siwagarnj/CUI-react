@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import Modal from '../components/common/Modal';
-import Table from '../components/common/Table';
+import React, { Component } from "react";
+import Modal from "../components/common/Modal";
+import Table from "../components/common/Table";
+import { getApi, postApi, putApi, deleteApi } from "../utils/api";
 
 class Tutorial1Page extends Component {
   constructor(props) {
@@ -15,6 +16,12 @@ class Tutorial1Page extends Component {
     // do something
   }
 
+  async onSaveItem(newItem) {
+    console.log("onSaveItem => ", newItem);
+    const res = await postApi("/users", newItem);
+    console.log(res);
+  }
+
   render() {
     return (
       <>
@@ -23,11 +30,12 @@ class Tutorial1Page extends Component {
           onClose={() => {
             this.setState({ isModalVisiable: false });
           }}
+          onSave={(newItem) => this.onSaveItem(newItem)}
         />
         <Table
           items={this.state.items}
           onCreate={() => {
-            console.log('onCreate');
+            console.log("onCreate");
             this.setState({ isModalVisiable: true });
             // do something
             this.setState({
@@ -35,21 +43,21 @@ class Tutorial1Page extends Component {
                 ...this.state.items,
                 {
                   no: this.state.items.length + 1,
-                  name: 'hello',
-                  surname: 'world',
-                  email: 'g@mail.com',
-                  gender: 'male',
-                  phoneNumber: '0800000000',
+                  name: "hello",
+                  surname: "world",
+                  email: "g@mail.com",
+                  gender: "male",
+                  phoneNumber: "0800000000",
                 },
               ],
             });
           }}
           onDelete={(item) => {
-            console.log('onDelete => ', item);
+            console.log("onDelete => ", item);
             // do something
           }}
           onEdit={(item) => {
-            console.log('onEdit =>', item);
+            console.log("onEdit =>", item);
             this.setState({ isModalVisiable: true });
             // do something
           }}
